@@ -15,8 +15,8 @@ import android.widget.ListView;
 import com.playcom.playflowplanner.Dialog.PlanAddDialog;
 import com.playcom.playflowplanner.ListAdapters.PlanListAdapter;
 import com.playcom.Database.Model.Plan;
-import com.playcom.playflowplanner.Service.PlanCategoryService;
-import com.playcom.playflowplanner.Service.PlanService;
+import com.playcom.Database.Service.PlanCategoryService;
+import com.playcom.Database.Service.PlanService;
 
 import java.util.List;
 
