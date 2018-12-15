@@ -1,8 +1,10 @@
 package com.playcom.playflowplanner;
 
 import android.app.Application;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +12,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.playcom.Database.Dialog.PlanAddDialog;
-import com.playcom.Database.ListAdapters.PlanListAdapter;
-import com.playcom.Database.Service.PlanCategoryService;
-import com.playcom.Database.Service.PlanService;
+import com.playcom.playflowplanner.Dialog.PlanAddDialog;
+import com.playcom.playflowplanner.ListAdapters.PlanListAdapter;
+import com.playcom.Database.Model.Plan;
+import com.playcom.playflowplanner.Service.PlanCategoryService;
+import com.playcom.playflowplanner.Service.PlanService;
+
+import java.util.List;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -30,8 +35,14 @@ public class HomeActivity extends AppCompatActivity {
                 .setAdapter(
                         new PlanListAdapter(
                                 _context,
-                                new PlanService(_context).GetAllLive().getValue())
+                                new PlanService(_context).GetAll())
                 );
+                new PlanService(_context).GetAllLive().observe(this, new Observer<List<Plan>>() {
+            @Override
+            public void onChanged(@Nullable List<Plan> plans) {
+
+            }
+        });
 
         ButtonClickListeners();
     }

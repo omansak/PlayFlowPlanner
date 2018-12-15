@@ -1,14 +1,13 @@
-package com.playcom.Database.ListAdapters;
+package com.playcom.playflowplanner.ListAdapters;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.playcom.Database.Model.Plan;
-import com.playcom.Database.Service.PlanCategoryService;
+import com.playcom.playflowplanner.Service.PlanCategoryService;
 import com.playcom.playflowplanner.R;
 
 import java.util.List;
