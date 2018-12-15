@@ -1,36 +1,65 @@
 package com.playcom.Database;
 
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
+import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
-import android.support.annotation.VisibleForTesting;
+import android.support.annotation.NonNull;
 
+import com.playcom.Database.Dao.IPlanCategoryDao;
 import com.playcom.Database.Dao.IPlanDoa;
 import com.playcom.Database.Model.Plan;
+import com.playcom.Database.Model.PlanCategory;
 
-@Database(entities = {Plan.class}, version = 1)
+import java.util.List;
+import java.util.concurrent.Executors;
+
+@Database(entities = {Plan.class,PlanCategory.class}, version = 1,exportSchema = true)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
-    private static AppDatabase instance;
+    private static AppDatabase _instance;
     public static final String DATABASE_NAME = "FlowPlannerDB";
 
-    public abstract IPlanDoa planDoa();
+    public abstract IPlanDoa PlanDoa();
+    public abstract IPlanCategoryDao PlanCategoryDao();
 
+    private final MutableLiveData<Boolean> IsDatabaseCreated = new MutableLiveData<>();
     public static AppDatabase GetInstance(final Context context) {
-        if (instance == null) {
+        if (_instance == null) {
             synchronized (AppDatabase.class) {
-                if (instance == null) {
-                    instance = BuildDatabase(context.getApplicationContext());
+                if (_instance == null) {
+                    _instance = BuildDatabase(context.getApplicationContext());
                 }
             }
         }
-        return instance;
+        return _instance;
     }
 
-    private static AppDatabase BuildDatabase(Context context) {
-        return Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME).allowMainThreadQueries().build();
+    private static AppDatabase BuildDatabase(final Context context) {
+        return Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
+                .addCallback(new Callback() {
+                    @Override
+                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                        super.onCreate(db);
+                        Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                InsertPlanCategoris(GetInstance(context),new DataGenerator().GenerateDefaultCategories());
+                            }
+                        });
+                    }
+                })
+                //.allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                //.addMigrations()
+                .build();
     }
-
+    private static void InsertPlanCategoris(AppDatabase appDatabase, List<PlanCategory> planCategories)
+    {
+        appDatabase.PlanCategoryDao().InsertAll(planCategories);
+    }
 }

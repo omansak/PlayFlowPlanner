@@ -1,27 +1,16 @@
 package com.playcom.Database.Model;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
 
-import com.playcom.Database.DateConverter;
-
-import java.util.Date;
-
-
-@Entity(foreignKeys = @ForeignKey(entity = PlanCategory.class,parentColumns = "Id",childColumns = "Id",onDelete = ForeignKey.SET_NULL))
-public class Plan {
-
+@Entity
+public class PlanCategory {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     private int Id;
     private String Name;
-    @TypeConverters(DateConverter.class)
-    private Date Date;
     private String Explanation;
-    private int CategoryId;
 
     @NonNull
     public int getId() {
@@ -40,14 +29,6 @@ public class Plan {
         Name = name;
     }
 
-    public java.util.Date getDate() {
-        return Date;
-    }
-
-    public void setDate(java.util.Date date) {
-        Date = date;
-    }
-
     public String getExplanation() {
         return Explanation;
     }
@@ -55,16 +36,4 @@ public class Plan {
     public void setExplanation(String explanation) {
         Explanation = explanation;
     }
-
-    public int getCategoryId() {
-        return CategoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        CategoryId = categoryId;
-    }
-
-
-
-
 }
