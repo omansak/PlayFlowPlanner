@@ -21,14 +21,6 @@ public class PlanService extends ViewModel {
 
     public PlanService(Context context) {
         _planDoa = AppDatabase.GetInstance(context).PlanDoa();
-        _observablePlans = new MediatorLiveData<>();
-        _observablePlans.setValue(this.GetAll());
-        _observablePlans.addSource(_planDoa.GetAllLive(), new Observer<List<Plan>>() {
-            @Override
-            public void onChanged(@Nullable List<Plan> plans) {
-                    _observablePlans.setValue(plans);
-            }
-        });
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -54,9 +46,5 @@ public class PlanService extends ViewModel {
         } catch (Exception e) {
             return null;
         }
-    }
-
-    public LiveData<List<Plan>> GetAllLive() {
-        return _observablePlans;
     }
 }

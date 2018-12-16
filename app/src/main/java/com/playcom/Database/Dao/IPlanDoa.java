@@ -25,9 +25,6 @@ public interface IPlanDoa {
     @Query("SELECT * FROM `Plan`")
     List<Plan> GetAll();
 
-    @Query("SELECT * FROM `Plan`")
-    LiveData<List<Plan>> GetAllLive();
-
     @Query("SELECT * FROM `Plan` WHERE `Id` = :planId")
     Plan FindByPlanId(int planId);
 }

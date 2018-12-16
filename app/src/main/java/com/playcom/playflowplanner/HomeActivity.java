@@ -2,6 +2,8 @@ package com.playcom.playflowplanner;
 
 import android.app.Application;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,19 +33,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         _application = this.getApplication();
         _context = this;
-        ((ListView) findViewById(R.id.listView_mainPlan))
-                .setAdapter(
-                        new PlanListAdapter(
-                                _context,
-                                new PlanService(_context).GetAll())
-                );
-                new PlanService(_context).GetAllLive().observe(this, new Observer<List<Plan>>() {
-            @Override
-            public void onChanged(@Nullable List<Plan> plans) {
-
-            }
-        });
-
+        SetPlanList();
         ButtonClickListeners();
     }
 
@@ -63,7 +53,15 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void SetPlanList(){
+        ((ListView) findViewById(R.id.listView_mainPlan))
+                .setAdapter(
+                        new PlanListAdapter(
+                                _context,
+                                new PlanService(_context).GetAll())
+                );
+        new PlanService(_context).GetAll();
+    }
     /* Examples
     private void Foo() {
         for (PlanCategory i : Objects.requireNonNull(FooAsync())) {
