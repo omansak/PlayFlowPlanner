@@ -1,43 +1,43 @@
 package com.playcom.playflowplanner;
 
 import android.app.Application;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.playcom.playflowplanner.Dialog.PlanAddDialog;
-import com.playcom.playflowplanner.ListAdapters.PlanListAdapter;
-import com.playcom.Database.Model.Plan;
 import com.playcom.Database.Service.PlanCategoryService;
 import com.playcom.Database.Service.PlanService;
+import com.playcom.playflowplanner.Dialog.PlanAddDialog;
+import com.playcom.playflowplanner.ListAdapters.PlanListAdapter;
 
-import java.util.List;
+;
 
 
 public class HomeActivity extends AppCompatActivity {
 
     private Application _application;
     private Context _context;
+    private ListView PlanListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         _application = this.getApplication();
         _context = this;
+        SetComponents();
+        Listeners();
         SetPlanList();
-        ButtonClickListeners();
     }
 
-    private void ButtonClickListeners() {
+    private void Listeners() {
         ((Button) findViewById(R.id.btn_planAdd)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +49,15 @@ public class HomeActivity extends AppCompatActivity {
                 ft.addToBackStack(null);
                 new PlanAddDialog()
                         .GetInstance(_application, new PlanCategoryService(_context).GetAll())
-                        .show(ft, "planAddDialog");
+                        .show(ft, "dialog");
+            }
+        });
+
+        PlanListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int planId= Integer.valueOf(((TextView)view.findViewById(R.id.planNo)).getText().toString());
+                startActivity(new Intent(getApplicationContext(), ActionActivity.class).putExtra("planId", planId));
             }
         });
     }
@@ -62,25 +70,10 @@ public class HomeActivity extends AppCompatActivity {
                 );
         new PlanService(_context).GetAll();
     }
-    /* Examples
-    private void Foo() {
-        for (PlanCategory i : Objects.requireNonNull(FooAsync())) {
-            Toast.makeText(this, i.getName(), Toast.LENGTH_LONG).show();
-        }
-    }
 
-    @SuppressLint("StaticFieldLeak")
-    private List<PlanCategory> FooAsync() {
-        try {
-            return new AsyncTask<AppDatabase, Void, List<PlanCategory>>() {
-                @Override
-                protected List<PlanCategory> doInBackground(AppDatabase... appDatabases) {
-                    return appDatabases[0].PlanCategoryDao().GetAll();
-                }
-            }.execute(appDatabase).get();
-        } catch (Exception e) {
-            return null;
-        }
-    }*/
+    private void SetComponents() {
+        PlanListView = ((ListView) findViewById(R.id.listView_mainPlan));
+        PlanListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+    }
 
 }

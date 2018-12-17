@@ -2,12 +2,14 @@ package com.playcom.playflowplanner.ListAdapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.playcom.Database.Model.Plan;
 import com.playcom.Database.Service.PlanCategoryService;
+import com.playcom.playflowplanner.ActionActivity;
 import com.playcom.playflowplanner.R;
 
 import java.util.List;
@@ -56,12 +58,6 @@ public class PlanListAdapter extends BaseAdapter {
         holder.Name.setText(plan.getName());
         holder.Explanation.setText(plan.getExplanation());
         holder.Category.setText(new PlanCategoryService(_context).GetById(plan.getCategoryId()).getName());
-
-        row.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
         return row;
     }
 

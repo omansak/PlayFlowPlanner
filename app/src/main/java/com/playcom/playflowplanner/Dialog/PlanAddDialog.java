@@ -18,6 +18,7 @@ import com.playcom.Database.Model.Plan;
 import com.playcom.Database.Model.PlanCategory;
 import com.playcom.Database.Service.PlanCategoryService;
 import com.playcom.Database.Service.PlanService;
+import com.playcom.playflowplanner.ActionActivity;
 import com.playcom.playflowplanner.HomeActivity;
 import com.playcom.playflowplanner.R;
 
@@ -68,8 +69,8 @@ public class PlanAddDialog extends DialogFragment {
                 plan.setExplanation(te.getText().toString());
                 plan.setDate(new Date());
                 plan.setCategoryId(new PlanCategoryService(_context).GetByName(s.getSelectedItem().toString()).getId());
-                new PlanService(_context).InsertAsync(plan);
-                startActivity( new Intent(getActivity(), HomeActivity.class));
+                alertDialog.dismiss();
+                startActivity( new Intent(getActivity(), ActionActivity.class).putExtra("planId",new PlanService(_context).InsertAsync(plan)));
             }
         });
 

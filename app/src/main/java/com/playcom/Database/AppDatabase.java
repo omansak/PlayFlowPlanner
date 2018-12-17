@@ -10,15 +10,21 @@ import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.playcom.Database.Dao.IActionDoa;
+import com.playcom.Database.Dao.IEmailFunctionDoa;
+import com.playcom.Database.Dao.IFunctionCategory;
 import com.playcom.Database.Dao.IPlanCategoryDao;
 import com.playcom.Database.Dao.IPlanDoa;
+import com.playcom.Database.Model.Action;
+import com.playcom.Database.Model.EmailFunction;
+import com.playcom.Database.Model.FunctionCategory;
 import com.playcom.Database.Model.Plan;
 import com.playcom.Database.Model.PlanCategory;
 
 import java.util.List;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Plan.class,PlanCategory.class}, version = 1,exportSchema = true)
+@Database(entities = {Plan.class,PlanCategory.class,FunctionCategory.class,EmailFunction.class,Action.class}, version = 1,exportSchema = true)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase _instance;
@@ -26,6 +32,9 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract IPlanDoa PlanDoa();
     public abstract IPlanCategoryDao PlanCategoryDao();
+    public abstract IFunctionCategory FunctionCategory();
+    public abstract IEmailFunctionDoa EmailFunctionDoa();
+    public abstract IActionDoa ActionDoa();
 
     private final MutableLiveData<Boolean> IsDatabaseCreated = new MutableLiveData<>();
     public static AppDatabase GetInstance(final Context context) {
@@ -49,6 +58,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             @Override
                             public void run() {
                                 InsertPlanCategoris(GetInstance(context),new DataGenerator().GenerateDefaultCategories());
+                                InsertFunctionCategoris(GetInstance(context),new DataGenerator().GenerateDefaultFunctionCategories());
                             }
                         });
                     }
@@ -61,5 +71,9 @@ public abstract class AppDatabase extends RoomDatabase {
     private static void InsertPlanCategoris(AppDatabase appDatabase, List<PlanCategory> planCategories)
     {
         appDatabase.PlanCategoryDao().InsertAll(planCategories);
+    }
+    private static void InsertFunctionCategoris(AppDatabase appDatabase, List<FunctionCategory> functionCategories)
+    {
+        appDatabase.FunctionCategory().InsertAll(functionCategories);
     }
 }

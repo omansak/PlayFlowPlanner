@@ -6,7 +6,24 @@
     <string name="plan_explanation">Plan Explanation</string>
     <string name="plan_category">Plan Category</string>
 
+    //Action
+    <string name="action_name">Action Name</string>
+    <string name="action_explanation">Action Explanation</string>
     //General
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
+    <string name="set">Set</string>
+    <string name="done">Done</string>
+    <string name="edit">edit</string>
+    <string name="delete">delete</string>
+    <string name="mail_subject">Subject</string>
+    <string name="mail_message">Message</string>
+    <string name="mail_message_to">Message To</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="title_activity_action">ActionActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
 </resources>

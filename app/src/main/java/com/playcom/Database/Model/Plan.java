@@ -22,6 +22,7 @@ public class Plan {
     private Date Date;
     private String Explanation;
     private int CategoryId;
+    private boolean IsDone;
 
     @NonNull
     public int getId() {
@@ -64,7 +65,11 @@ public class Plan {
         CategoryId = categoryId;
     }
 
+    public boolean getIsDone() {
+        return IsDone;
+    }
 
-
-
+    public void setIsDone(boolean done) {
+        IsDone = done;
+    }
 }

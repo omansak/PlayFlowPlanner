@@ -7,55 +7,38 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:padding="8dp"
-
+        android:layout_margin="2dp"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/plan_name"
-            android:textStyle="bold|italic"/>
+            android:text="@string/action_name"/>
 
         <EditText
-            android:id="@+id/dialog_planAdd_name"
+            android:id="@+id/dialog_actionAdd_name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/textvew_layout"/>
-
+            android:layout_height="match_parent" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/plan_explanation"
-            android:textStyle="bold|italic"/>
+            android:text="@string/action_explanation"/>
         <EditText
-            android:id="@+id/dialog_planAdd_explanation"
+            android:id="@+id/dialog_actionAdd_explanation"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/textvew_layout"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/plan_category"
-            android:textStyle="bold|italic"/>
-        <Spinner
-            android:id="@+id/dialog_planAdd_spinner_categories"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:weightSum="2">
             <Button
-                android:id="@+id/dialog_planAdd_btn_cancel"
+                android:id="@+id/dialog_actionAdd_btn_cancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/cancel"
                 android:layout_weight="1"/>
             <Button
-                android:id="@+id/dialog_planAdd_btn_create"
+                android:id="@+id/dialog_actionAdd_btn_create"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/create"

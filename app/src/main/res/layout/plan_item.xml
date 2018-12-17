@@ -8,9 +8,11 @@
         android:layout_height="100dp"
         android:layout_marginRight="50dp"
         android:layout_marginLeft="50dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:descendantFocusability="blocksDescendants">
         <TextView
             android:id="@+id/planNo"
+            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
@@ -25,5 +27,6 @@
             android:id="@+id/planCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

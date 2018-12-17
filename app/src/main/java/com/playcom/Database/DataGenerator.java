@@ -1,5 +1,7 @@
 package com.playcom.Database;
 
+import com.playcom.Database.Model.Action;
+import com.playcom.Database.Model.FunctionCategory;
 import com.playcom.Database.Model.PlanCategory;
 
 import java.util.ArrayList;
@@ -15,6 +17,18 @@ public class DataGenerator {
             planCategory.setName(names[i]);
             planCategory.setExplanation(explanations[i]);
             categories.add(planCategory);
+        }
+        return categories;
+    }
+    public List<FunctionCategory> GenerateDefaultFunctionCategories() {
+        String names[] = new String[]{"Email",};
+        String explanations[] = new String[]{"Set A Action For Email Template Any Time"};
+        List<FunctionCategory> categories = new ArrayList<>();
+        for (int i = 0; i < names.length; i++) {
+            FunctionCategory functionCategory = new FunctionCategory();
+            functionCategory.setName(names[i]);
+            functionCategory.setExplanation(explanations[i]);
+            categories.add(functionCategory);
         }
         return categories;
     }
