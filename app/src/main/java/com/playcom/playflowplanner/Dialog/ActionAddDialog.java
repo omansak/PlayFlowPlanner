@@ -53,7 +53,18 @@ public class ActionAddDialog extends DialogFragment {
                 action.setDate(new Date());
                 action.setPlanId(_planId);
                 action.setIsDone(false);
-                int _actionId=new ActionService(_context).InsertAsync(action);
+                action.setIsProcessed(false);
+                ActionService actionService = new ActionService(_context);
+                int _actionId=actionService.InsertAsync(action);
+                for(Action i:actionService.GetListByPlanId(_planId))
+                {
+                    if(i.getNextAction() == 0 && i.getId() != _actionId)
+                    {
+                        i.setNextAction(_actionId);
+                        actionService.Update(i);
+                        break;
+                    }
+                }
                 alertDialog.dismiss();
                 startActivity(new Intent(_context, FunctionListActivity.class).putExtra("planId", _planId).putExtra("actionId",_actionId));
             }

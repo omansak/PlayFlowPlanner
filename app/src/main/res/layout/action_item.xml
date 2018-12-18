@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:descendantFocusability="blocksDescendants">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/action_item_img"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="3dp" />
+            <android.support.v7.widget.CardView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:cardCornerRadius="10dp"
+                android:background="@color/colorAccent"
+                android:layout_margin="5dp"
+                android:elevation="10dp">
+                <ImageView
+                    android:id="@+id/action_item_img"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center"
+                    />
+            </android.support.v7.widget.CardView>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="5dp">
                 <TextView
                     android:id="@+id/action_item_name"
@@ -45,25 +57,60 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3">
+            android:layout_weight="4"
+            android:layout_gravity="center"
+            android:gravity="center">
             <Button
                 android:id="@+id/action_item_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/delete"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="10"
+                android:textColor="#FFFFFF"
+                android:textSize="12dp"
+                android:background="@drawable/buttonshape"
+                android:layout_height="25dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="0dp" />
             <Button
                 android:id="@+id/action_item_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/edit"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="10"
+                android:textColor="#FFFFFF"
+                android:textSize="12dp"
+                android:background="@drawable/buttonshape"
+                android:layout_height="25dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="0dp" />
             <Button
                 android:id="@+id/action_item_done"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/done"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="10"
+                android:textColor="#FFFFFF"
+                android:textSize="12dp"
+                android:background="@drawable/buttonshape"
+                android:layout_height="25dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="0dp" />
         </LinearLayout>
 
     </LinearLayout>

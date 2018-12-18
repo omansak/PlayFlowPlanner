@@ -10,6 +10,7 @@ import com.playcom.Database.Dao.IFunctionCategory;
 import com.playcom.Database.Model.EmailFunction;
 import com.playcom.Database.Model.FunctionCategory;
 import com.playcom.Database.Model.Plan;
+import com.playcom.Database.Model.PlanCategory;
 
 import java.util.List;
 
@@ -31,6 +32,19 @@ public class EmailFunctionService {
             }.execute(i).get();
         } catch (Exception e) {
             return 0;
+        }
+    }
+    @SuppressLint("StaticFieldLeak")
+    public EmailFunction GetById(int id) {
+        try {
+            return new AsyncTask<Integer, Void, EmailFunction>() {
+                @Override
+                protected EmailFunction doInBackground(Integer... obj) {
+                    return _service.FindByPlanId(obj[0]);
+                }
+            }.execute(id).get();
+        } catch (Exception e) {
+            return null;
         }
     }
 }

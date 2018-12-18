@@ -45,7 +45,17 @@ public class ActionService {
             }
         }.execute(i);
     }
-
+    @SuppressLint("StaticFieldLeak")
+    public void Delete(Action i)
+    {
+        new AsyncTask<Action, Void, Void>() {
+            @Override
+            protected Void doInBackground(Action... obj) {
+                _service.Delete(obj[0]);
+                return null;
+            }
+        }.execute(i);
+    }
     @SuppressLint("StaticFieldLeak")
     public Action GetById(int i)
     {

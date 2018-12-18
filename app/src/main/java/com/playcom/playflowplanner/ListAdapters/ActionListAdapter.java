@@ -2,15 +2,20 @@ package com.playcom.playflowplanner.ListAdapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.playcom.Database.Model.Action;
 import com.playcom.Database.Model.FunctionCategory;
+import com.playcom.Database.Service.ActionService;
+import com.playcom.Database.Service.PlanService;
+import com.playcom.playflowplanner.ActionActivity;
 import com.playcom.playflowplanner.R;
 
 import java.util.List;
@@ -65,6 +70,16 @@ public class ActionListAdapter extends BaseAdapter {
             }
 
         }
+        holder.DeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int planId=action.getPlanId();
+                new ActionService(_context).Delete(action);
+                Toast.makeText(_context,"Deleted",Toast.LENGTH_LONG).show();
+                v.getContext().startActivity( new Intent(_context, ActionActivity.class).putExtra("planId",planId));
+
+            }
+        });
         return row;
     }
 

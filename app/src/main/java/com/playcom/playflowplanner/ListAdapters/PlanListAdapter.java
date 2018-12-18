@@ -45,7 +45,6 @@ public class PlanListAdapter extends BaseAdapter {
         if (row == null) {
             row = ((Activity) _context).getLayoutInflater().inflate(R.layout.plan_item, parent, false);
             holder = new PlanListViewHolder();
-            holder.No = (TextView) row.findViewById(R.id.planNo);
             holder.Name = (TextView) row.findViewById(R.id.planName);
             holder.Explanation = (TextView) row.findViewById(R.id.planExplanation);
             holder.Category = (TextView) row.findViewById(R.id.planCategory);
@@ -54,7 +53,6 @@ public class PlanListAdapter extends BaseAdapter {
             holder = (PlanListViewHolder) row.getTag();
         }
         Plan plan = (Plan) this.getItem(position);
-        holder.No.setText(String.valueOf(plan.getId()));
         holder.Name.setText(plan.getName());
         holder.Explanation.setText(plan.getExplanation());
         holder.Category.setText(new PlanCategoryService(_context).GetById(plan.getCategoryId()).getName());

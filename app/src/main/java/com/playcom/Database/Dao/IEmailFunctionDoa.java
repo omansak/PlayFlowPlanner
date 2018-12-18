@@ -23,6 +23,6 @@ public interface IEmailFunctionDoa {
     @Delete
     void Delete(EmailFunction i);
 
-    @Query("SELECT * FROM `FunctionCategory` WHERE `Id` = :i")
-    FunctionCategory FindByPlanId(int i);
+    @Query("SELECT * FROM `EmailFunction` WHERE `Id` = :i")
+    EmailFunction FindByPlanId(int i);
 }

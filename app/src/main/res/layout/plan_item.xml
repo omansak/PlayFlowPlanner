@@ -5,28 +5,61 @@
     android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginLeft="50dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:descendantFocusability="blocksDescendants">
-        <TextView
-            android:id="@+id/planNo"
-            android:visibility="visible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/planName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/planExplanation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/planCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_margin="40dp">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_connect" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/table_layout">
+                <TextView
+                    android:id="@+id/planName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textStyle="bold|italic"
+                    android:layout_weight="3"
+                    android:padding="5dp"/>
+                <Spinner
+                    android:id="@+id/plan_configrafion_spinner_categories"
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:background="@drawable/table_layout" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/planExplanation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/table_layout"
+                android:minLines="2"
+                android:padding="5dp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/planCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@drawable/table_layout"
+                android:textStyle="bold|italic"
+                android:padding="5dp"/>
+
+        </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

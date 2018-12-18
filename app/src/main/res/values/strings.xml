@@ -11,6 +11,7 @@
     <string name="action_explanation">Action Explanation</string>
     //General
     <string name="create">Create</string>
+    <string name="run">Run</string>
     <string name="cancel">Cancel</string>
     <string name="set">Set</string>
     <string name="done">Done</string>
@@ -23,7 +24,6 @@
     <string name="time">Time</string>
     <string name="title_activity_action">ActionActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_settings">Settings</string>
 
 </resources>

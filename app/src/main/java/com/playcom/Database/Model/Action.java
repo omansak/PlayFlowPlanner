@@ -24,6 +24,7 @@ public class Action {
     @TypeConverters(DateConverter.class)
     private Date Date;
     private boolean IsDone;
+    private boolean IsProcessed;
 
     @NonNull
     public int getId() {
@@ -96,5 +97,13 @@ public class Action {
 
     public void setFunctionCategoryId(int functionCategoryId) {
         FunctionCategoryId = functionCategoryId;
+    }
+
+    public boolean getIsProcessed() {
+        return IsProcessed;
+    }
+
+    public void setIsProcessed(boolean processed) {
+        IsProcessed = processed;
     }
 }

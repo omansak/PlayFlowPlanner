@@ -65,7 +65,7 @@ public class FunctionMailAddDialog extends DialogFragment {
                 String[] splitDate = datetv.getText().toString().split("-");
                 String[] splitTime = timetv.getText().toString().split(":");
                 Calendar cal = Calendar.getInstance();
-                cal.set(Integer.parseInt(splitDate[0]),Integer.parseInt(splitDate[1]),Integer.parseInt(splitDate[2]),Integer.parseInt(splitTime[0]),Integer.parseInt(splitTime[0]));
+                cal.set(Integer.parseInt(splitDate[0]),Integer.parseInt(splitDate[1]),Integer.parseInt(splitDate[2]),Integer.parseInt(splitTime[0]),Integer.parseInt(splitTime[1]));
                 EmailFunction emailFunction = new EmailFunction();
                 emailFunction.setDate(cal.getTime());
                 emailFunction.setMessage(((EditText) dialogView.findViewById(R.id.function_mail_message)).getText().toString());
@@ -76,7 +76,7 @@ public class FunctionMailAddDialog extends DialogFragment {
                 action.setFunctionId(functionId);
                 action.setFunctionCategoryId(1);
                 new ActionService(_context).Update(action);
-                startActivity(new Intent(_context, ActionActivity.class).putExtra("planId", _planId));
+                startActivity(new Intent(_context, ActionActivity.class).putExtra("planId", _planId).putExtra("setFunction",true));
                 alertDialog.dismiss();
             }
         });

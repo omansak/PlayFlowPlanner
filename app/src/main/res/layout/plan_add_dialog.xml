@@ -9,7 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:padding="8dp"
-
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
@@ -51,15 +50,37 @@
             <Button
                 android:id="@+id/dialog_planAdd_btn_cancel"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="@string/cancel"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="10"
+                android:textColor="#FFFFFF"
+                android:textSize="12dp"
+                android:background="@drawable/buttonshape"
+                android:layout_height="25dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="5dp"/>
             <Button
                 android:id="@+id/dialog_planAdd_btn_create"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="@string/create"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="10"
+                android:textColor="#FFFFFF"
+                android:textSize="12dp"
+                android:background="@drawable/buttonshape"
+                android:layout_height="25dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

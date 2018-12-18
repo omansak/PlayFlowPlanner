@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -38,7 +39,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void Listeners() {
-        ((Button) findViewById(R.id.btn_planAdd)).setOnClickListener(new View.OnClickListener() {
+        ((FloatingActionButton) findViewById(R.id.btn_planAdd)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -56,7 +57,7 @@ public class HomeActivity extends AppCompatActivity {
         PlanListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int planId= Integer.valueOf(((TextView)view.findViewById(R.id.planNo)).getText().toString());
+                int planId= (int)id;
                 startActivity(new Intent(getApplicationContext(), ActionActivity.class).putExtra("planId", planId));
             }
         });
