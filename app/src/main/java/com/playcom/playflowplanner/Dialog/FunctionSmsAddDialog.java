@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.arch.core.util.Function;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,37 +19,35 @@ import android.widget.TimePicker;
 
 import com.playcom.Database.Model.Action;
 import com.playcom.Database.Model.EmailFunction;
-import com.playcom.Database.Model.FunctionCategory;
 import com.playcom.Database.Model.PlanCategory;
+import com.playcom.Database.Model.SmsFunction;
 import com.playcom.Database.Service.ActionService;
 import com.playcom.Database.Service.EmailFunctionService;
-import com.playcom.Database.Service.PlanCategoryService;
+import com.playcom.Database.Service.SmsFunctionService;
 import com.playcom.playflowplanner.ActionActivity;
 import com.playcom.playflowplanner.R;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-public class FunctionMailAddDialog extends DialogFragment {
+public class FunctionSmsAddDialog extends DialogFragment {
     List<PlanCategory> _categories;
     Context _context;
     int _actionId;
     int _planId;
-    public FunctionMailAddDialog GetInstance(Context context,int actionId,int planId) {
+
+    public FunctionSmsAddDialog GetInstance(Context context, int actionId, int planId) {
         _context = context;
-        _actionId=actionId;
-        _planId=planId;
+        _actionId = actionId;
+        _planId = planId;
         return this;
     }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        final LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.function_mail_add, null);
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.function_sms_add, null);
         builder.setView(dialogView);
         final AlertDialog alertDialog = builder.create();
         ((Button) dialogView.findViewById(R.id.dialog_function_btn_cancel)).setOnClickListener(new View.OnClickListener() {
@@ -62,21 +59,20 @@ public class FunctionMailAddDialog extends DialogFragment {
         ((Button) dialogView.findViewById(R.id.dialog_function_btn_create)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText datetv = (EditText) dialogView.findViewById(R.id.function_mail_date);
-                EditText timetv = (EditText) dialogView.findViewById(R.id.function_mail_time);
+                EditText datetv = (EditText) dialogView.findViewById(R.id.function_sms_date);
+                EditText timetv = (EditText) dialogView.findViewById(R.id.function_sms_time);
                 String[] splitDate = datetv.getText().toString().split("-");
                 String[] splitTime = timetv.getText().toString().split(":");
                 Calendar cal = Calendar.getInstance();
                 cal.set(Integer.parseInt(splitDate[0]),Integer.parseInt(splitDate[1]),Integer.parseInt(splitDate[2]),Integer.parseInt(splitTime[0]),Integer.parseInt(splitTime[1]));
-                EmailFunction emailFunction = new EmailFunction();
-                emailFunction.setDate(cal.getTime());
-                emailFunction.setMessage(((EditText) dialogView.findViewById(R.id.function_mail_message)).getText().toString());
-                emailFunction.setMessageTo(((EditText) dialogView.findViewById(R.id.function_mail_message_to)).getText().toString());
-                emailFunction.setSubject(((EditText) dialogView.findViewById(R.id.function_mail_subject)).getText().toString());
-                int functionId =new EmailFunctionService(_context).InsertAsync(emailFunction);
+                SmsFunction smsFunction = new SmsFunction();
+                smsFunction.setDate(cal.getTime());
+                smsFunction.setMessage(((EditText) dialogView.findViewById(R.id.function_sms_message)).getText().toString());
+                smsFunction.setSmsTo(((EditText) dialogView.findViewById(R.id.function_sms_message_to)).getText().toString());
+                int functionId =new SmsFunctionService(_context).InsertAsync(smsFunction);
                 Action action = new ActionService(_context).GetById(_actionId);
                 action.setFunctionId(functionId);
-                action.setFunctionCategoryId(1);
+                action.setFunctionCategoryId(2);
                 new ActionService(_context).Update(action);
                 startActivity(new Intent(_context, ActionActivity.class).putExtra("planId", _planId).putExtra("setFunction",true));
                 alertDialog.dismiss();
@@ -92,7 +88,7 @@ public class FunctionMailAddDialog extends DialogFragment {
                 new DatePickerDialog(_context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        ((EditText) dialogView.findViewById(R.id.function_mail_date)).setText(year + "-" + month + "-" + dayOfMonth);
+                        ((EditText) dialogView.findViewById(R.id.function_sms_date)).setText(year + "-" + month + "-" + dayOfMonth);
                     }
                 }, mYear, mMonth, mDay).show();
             }
@@ -108,7 +104,7 @@ public class FunctionMailAddDialog extends DialogFragment {
 
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                ((EditText) dialogView.findViewById(R.id.function_mail_time)).setText(hourOfDay + ":" + minute);
+                                ((EditText) dialogView.findViewById(R.id.function_sms_time)).setText(hourOfDay + ":" + minute);
                             }
                         }, mHour, mMinute, true).show();
             }

@@ -1,0 +1,39 @@
+<resources>
+    //Plan
+    <string name="plan_name">Plan İsmi</string>
+    <string name="plan_explanation">Plan Açıklaması</string>
+    <string name="plan_category">Plan Kategorisi</string>
+
+    //Action
+    <string name="action_name">Eylem İsmi</string>
+    <string name="action_explanation">Eylem Açıklaması</string>
+    //General
+    <string name="create">Oluştur</string>
+    <string name="languages">Diller</string>
+    <string name="turkish">Türkçe</string>
+    <string name="english">English</string>
+    <string name="actions">Eylem Sayfası</string>
+    <string name="plans">Plan Sayfası</string>
+    <string name="funcitons">Fonksiyon Sayfası</string>
+    <string name="settings">Ayarlar Sayfası</string>
+    <string name="run">Çalıştır</string>
+    <string name="cancel">İptal</string>
+    <string name="set">Seç</string>
+    <string name="done">Bitir</string>
+    <string name="edit">Düzenle</string>
+    <string name="delete">Sil</string>
+    <string name="mail_subject">Konu</string>
+    <string name="mail_message">Mesaj</string>
+    <string name="mail_message_to">Kime Mesaj</string>
+    <string name="date">Tarih</string>
+    <string name="time">Saat</string>
+    <string name="title_activity_action">Eylem Sayfası</string>
+    <string name="title_home">Ana Sayfa</string>
+    <string name="update">Güncelle</string>
+    <string name="title_settings">Ayarlar</string>
+    //Sms Function
+    <string name="sms_subject">Konu</string>
+    <string name="sms_message">Mesaj</string>
+    <string name="sms_message_to">SMS Numarası</string>
+
+</resources>

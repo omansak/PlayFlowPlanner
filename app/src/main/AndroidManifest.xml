@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.playcom.playflowplanner">
+
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
-        android:label="@string/app_name"
+        android:label="Play Flow Planner"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomeActivity">
+        <activity
+            android:name=".HomeActivity"
+            android:label="Play Flow Planner">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActionActivity" />
-        <activity android:name=".FunctionListActivity"></activity>
-        <receiver android:process=":remote" android:name=".Functions.NotificationFunction"></receiver>
+        <activity
+            android:name=".ActionActivity"
+            android:label="@string/actions" />
+        <activity
+            android:name=".FunctionListActivity"
+            android:label="@string/funcitons" />
+
+        <receiver
+            android:name=".Functions.NotificationFunction"
+            android:process=":remote" />
+
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

@@ -50,7 +50,6 @@ public class FunctionCategoryListAdapter extends BaseAdapter {
             holder = new ListViewHolder();
             holder.Name = (TextView) row.findViewById(R.id.function_item_name);
             holder.Explanation = (TextView) row.findViewById(R.id.function_item_exp);
-            //holder.AddButton = (Button) row.findViewById(R.id.function_item_add_btn);
             holder.Image = (ImageView) row.findViewById(R.id.function_item_img);
             row.setTag(holder);
         } else {
@@ -62,15 +61,21 @@ public class FunctionCategoryListAdapter extends BaseAdapter {
         switch (functionCategory.getId()) {
             case 1: {
                 holder.Image.setBackgroundResource(R.drawable.fc_mail);
+                break;
             }
-
+            case 2: {
+                holder.Image.setBackgroundResource(R.drawable.sms);
+                break;
+            }
+            case 3: {
+                holder.Image.setBackgroundResource(R.drawable.alert);
+                break;
+            }
+            case 4: {
+                holder.Image.setBackgroundResource(R.drawable.gift);
+                break;
+            }
         }
-        /*holder.AddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int a = functionCategory.getId();
-            }
-        });*/
         return row;
     }
 

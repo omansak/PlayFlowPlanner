@@ -15,16 +15,18 @@ import com.playcom.Database.Dao.IEmailFunctionDoa;
 import com.playcom.Database.Dao.IFunctionCategory;
 import com.playcom.Database.Dao.IPlanCategoryDao;
 import com.playcom.Database.Dao.IPlanDoa;
+import com.playcom.Database.Dao.ISmsFunctionDao;
 import com.playcom.Database.Model.Action;
 import com.playcom.Database.Model.EmailFunction;
 import com.playcom.Database.Model.FunctionCategory;
 import com.playcom.Database.Model.Plan;
 import com.playcom.Database.Model.PlanCategory;
+import com.playcom.Database.Model.SmsFunction;
 
 import java.util.List;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Plan.class,PlanCategory.class,FunctionCategory.class,EmailFunction.class,Action.class}, version = 1,exportSchema = true)
+@Database(entities = {Plan.class,PlanCategory.class,FunctionCategory.class,EmailFunction.class,Action.class,SmsFunction.class}, version = 1,exportSchema = true)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase _instance;
@@ -34,6 +36,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract IPlanCategoryDao PlanCategoryDao();
     public abstract IFunctionCategory FunctionCategory();
     public abstract IEmailFunctionDoa EmailFunctionDoa();
+    public abstract ISmsFunctionDao SmsFunctionDao();
     public abstract IActionDoa ActionDoa();
 
     private final MutableLiveData<Boolean> IsDatabaseCreated = new MutableLiveData<>();

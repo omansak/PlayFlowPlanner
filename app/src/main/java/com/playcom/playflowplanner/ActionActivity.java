@@ -3,11 +3,15 @@ package com.playcom.playflowplanner;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -15,11 +19,14 @@ import android.widget.ListView;
 
 import com.playcom.Database.Model.Action;
 import com.playcom.Database.Model.EmailFunction;
+import com.playcom.Database.Model.SmsFunction;
 import com.playcom.Database.Service.ActionService;
 import com.playcom.Database.Service.EmailFunctionService;
+import com.playcom.Database.Service.SmsFunctionService;
 import com.playcom.playflowplanner.Dialog.ActionAddDialog;
 import com.playcom.playflowplanner.Functions.EmailIntentFunction;
 import com.playcom.playflowplanner.Functions.NotificationFunction;
+import com.playcom.playflowplanner.Functions.SmsIntentFunction;
 import com.playcom.playflowplanner.ListAdapters.ActionListAdapter;
 
 import java.util.Calendar;
@@ -30,6 +37,21 @@ public class ActionActivity extends AppCompatActivity {
     private Context _context;
     private Application _application;
     private int _planId;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    return true;
+                case R.id.navigation_settings:
+                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                    return true;
+            }
+            return false;
+        }
+
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +61,8 @@ public class ActionActivity extends AppCompatActivity {
         _planId = getIntent().getIntExtra("planId",0);
         SetFunctionListView();
         SetListeners();
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         if (getIntent().getIntExtra("actionId", 0) != 0) {
             Action action = new ActionService(this).GetById(getIntent().getIntExtra("actionId", 0));
             if (action != null) {
@@ -48,6 +72,25 @@ public class ActionActivity extends AppCompatActivity {
                         SetAction(action.getNextAction());
                         EmailFunction emailFunction = new EmailFunctionService(_context).GetById(action.getFunctionId());
                         new EmailIntentFunction(_context, emailFunction.getSubject(), emailFunction.getMessage(), emailFunction.getMessageTo()).SendToMail();
+                        break;
+                    }
+                    case 2: {
+                        SetDone(action.getId());
+                        SetAction(action.getNextAction());
+                        SmsFunction smsFunction = new SmsFunctionService(_context).GetById(action.getFunctionId());
+                        new SmsIntentFunction(_context,smsFunction.getMessage(),smsFunction.getSmsTo()).SendToSms();
+                        break;
+                    }
+                    case 3: {
+                        SetDone(action.getId());
+                        SetAction(action.getNextAction());
+                        break;
+                    }
+                    case 4: {
+                        SetDone(action.getId());
+                        SetAction(action.getNextAction());
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.hediyesepeti.com/"));
+                        startActivity(intent);
                         break;
                     }
                 }
@@ -61,12 +104,7 @@ public class ActionActivity extends AppCompatActivity {
                     if (!i.getIsDone()) {
                         if(!i.getIsProcessed())
                         {
-                            switch (i.getFunctionCategoryId()) {
-                                case 1: {
-                                    SetAction(i.getId());
-                                    break;
-                                }
-                            }
+                            SetAction(i.getId());
                         }
                         break;
                     }
@@ -95,22 +133,15 @@ public class ActionActivity extends AppCompatActivity {
                 }
                 ft.addToBackStack(null);
                 new ActionAddDialog()
-                        .GetInstance(_context,_planId)
+                        .GetInstance(_context,_planId,
+                                0)
                         .show(ft, "dialog");
             }
         });
         ((ListView) findViewById(R.id.listView_actions)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Action action = new ActionService(_context).GetById((int) id);
-                switch (action.getFunctionCategoryId()) {
-                    case 1: {
-                        EmailFunction emailFunction = new EmailFunctionService(_context).GetById(action.getFunctionId());
-                        new EmailIntentFunction(_context, emailFunction.getSubject(), emailFunction.getMessage(), emailFunction.getMessageTo()).SendToMail();
-                        break;
-                    }
-                }
-
+                SetAction((int)id);
             }
         });
     }
@@ -129,6 +160,31 @@ public class ActionActivity extends AppCompatActivity {
                 case 1: {
                     EmailFunction emailFunction = new EmailFunctionService(this).GetById(action.getFunctionId());
                     long delay = Math.abs(emailFunction.getDate().getTime() - Calendar.getInstance().getTime().getTime());
+                    Intent intent = new Intent(_context, ActionActivity.class).putExtra("planId", _planId).putExtra("actionId", actionId);
+                    new NotificationFunction().ScheduleNotification(this, delay, _planId * 1000000 + actionId, action.getName(), action.getExplanation(), intent);
+                    action.setIsProcessed(true);
+                    new ActionService(_context).Update(action);
+                    break;
+                }
+                case 2: {
+                    SmsFunction smsFunction = new SmsFunctionService(this).GetById(action.getFunctionId());
+                    long delay = Math.abs(smsFunction.getDate().getTime() - Calendar.getInstance().getTime().getTime());
+                    Intent intent = new Intent(_context, ActionActivity.class).putExtra("planId", _planId).putExtra("actionId", actionId);
+                    new NotificationFunction().ScheduleNotification(this, delay, _planId * 1000000 + actionId, action.getName(), action.getExplanation(), intent);
+                    action.setIsProcessed(true);
+                    new ActionService(_context).Update(action);
+                    break;
+                }
+                case 3: {
+                    long delay = Math.abs(action.getDate().getTime() - Calendar.getInstance().getTime().getTime());
+                    Intent intent = new Intent(_context, ActionActivity.class).putExtra("planId", _planId).putExtra("actionId", actionId);
+                    new NotificationFunction().ScheduleNotification(this, delay, _planId * 1000000 + actionId, action.getName(), action.getExplanation(), intent);
+                    action.setIsProcessed(true);
+                    new ActionService(_context).Update(action);
+                    break;
+                }
+                case 4: {
+                    long delay = Math.abs(action.getDate().getTime() - Calendar.getInstance().getTime().getTime());
                     Intent intent = new Intent(_context, ActionActivity.class).putExtra("planId", _planId).putExtra("actionId", actionId);
                     new NotificationFunction().ScheduleNotification(this, delay, _planId * 1000000 + actionId, action.getName(), action.getExplanation(), intent);
                     action.setIsProcessed(true);

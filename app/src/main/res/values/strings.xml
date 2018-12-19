@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">Play Flow Planner</string>
-
     //Plan
     <string name="plan_name">Plan Name</string>
     <string name="plan_explanation">Plan Explanation</string>
@@ -11,6 +9,13 @@
     <string name="action_explanation">Action Explanation</string>
     //General
     <string name="create">Create</string>
+    <string name="turkish">Türkçe</string>
+    <string name="english">English</string>
+    <string name="languages">Languages</string>
+    <string name="actions">Actions Page</string>
+    <string name="plans">Plans Page</string>
+    <string name="funcitons">Functions Page</string>
+    <string name="settings">Settings Page</string>
     <string name="run">Run</string>
     <string name="cancel">Cancel</string>
     <string name="set">Set</string>
@@ -25,5 +30,10 @@
     <string name="title_activity_action">ActionActivity</string>
     <string name="title_home">Home</string>
     <string name="title_settings">Settings</string>
+    <string name="update">Update</string>
+    //Sms Function
+    <string name="sms_subject">Subject</string>
+    <string name="sms_message">Message</string>
+    <string name="sms_message_to">SMS Number</string>
 
 </resources>

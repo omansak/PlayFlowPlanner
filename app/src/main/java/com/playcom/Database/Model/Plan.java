@@ -11,7 +11,7 @@ import com.playcom.Database.DateConverter;
 import java.util.Date;
 
 
-@Entity(foreignKeys = @ForeignKey(entity = PlanCategory.class,parentColumns = "Id",childColumns = "Id",onDelete = ForeignKey.SET_NULL))
+@Entity
 public class Plan {
 
     @NonNull

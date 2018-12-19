@@ -22,9 +22,12 @@ import java.util.Date;
 
 public class ActionAddDialog extends DialogFragment {
     int _planId;
+    int _actionId;
     Context _context;
-    public ActionAddDialog GetInstance(Context context, int planId){
+
+    public ActionAddDialog GetInstance(Context context, int planId, int actionId) {
         _planId = planId;
+        _actionId = actionId;
         _context = context;
         return this;
     }
@@ -36,6 +39,14 @@ public class ActionAddDialog extends DialogFragment {
         final View dialogView = inflater.inflate(R.layout.action_add_dialog, null);
         builder.setView(dialogView);
         final AlertDialog alertDialog = builder.create();
+        final TextView tn=(TextView)dialogView.findViewById(R.id.dialog_actionAdd_name);
+        final TextView te=(TextView)dialogView.findViewById(R.id.dialog_actionAdd_explanation);
+        if(_actionId !=0)
+        {
+            Action action = new ActionService(_context).GetById(_actionId);
+            tn.setText(action.getName());
+            te.setText(action.getExplanation());
+        }
         ((Button)dialogView.findViewById(R.id.dialog_actionAdd_btn_cancel)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,8 +56,7 @@ public class ActionAddDialog extends DialogFragment {
         ((Button)dialogView.findViewById(R.id.dialog_actionAdd_btn_create)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView tn=(TextView)dialogView.findViewById(R.id.dialog_actionAdd_name);
-                TextView te=(TextView)dialogView.findViewById(R.id.dialog_actionAdd_explanation);
+
                 Action action = new Action();
                 action.setName(tn.getText().toString());
                 action.setExplanation(te.getText().toString());
@@ -55,7 +65,14 @@ public class ActionAddDialog extends DialogFragment {
                 action.setIsDone(false);
                 action.setIsProcessed(false);
                 ActionService actionService = new ActionService(_context);
-                int _actionId=actionService.InsertAsync(action);
+                if(_actionId !=0)
+                {
+                    action.setId(_actionId);
+                    actionService.Update(action);
+                }
+                else {
+                    _actionId=actionService.InsertAsync(action);
+                }
                 for(Action i:actionService.GetListByPlanId(_planId))
                 {
                     if(i.getNextAction() == 0 && i.getId() != _actionId)

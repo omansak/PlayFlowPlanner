@@ -7,14 +7,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="40dp">
+        android:layout_margin="35dp"
+        android:descendantFocusability="blocksDescendants">
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="17dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_connect" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,15 +32,7 @@
                     android:textStyle="bold|italic"
                     android:layout_weight="3"
                     android:padding="5dp"/>
-                <Spinner
-                    android:id="@+id/plan_configrafion_spinner_categories"
-                    android:layout_width="3dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_weight="1"
-                    android:background="@drawable/table_layout" />
             </LinearLayout>
-
             <TextView
                 android:id="@+id/planExplanation"
                 android:layout_width="match_parent"
@@ -50,7 +42,6 @@
                 android:minLines="2"
                 android:padding="5dp">
             </TextView>
-
             <TextView
                 android:id="@+id/planCategory"
                 android:layout_width="match_parent"
@@ -59,7 +50,46 @@
                 android:background="@drawable/table_layout"
                 android:textStyle="bold|italic"
                 android:padding="5dp"/>
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <Button
+                    android:id="@+id/plan_btn_delete"
+                    android:layout_width="match_parent"
+                    android:text="@string/delete"
+                    android:layout_weight="1"
+                    android:shadowColor="#000000"
+                    android:shadowDx="5"
+                    android:shadowDy="5"
+                    android:shadowRadius="10"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12dp"
+                    android:background="@drawable/buttonshape"
+                    android:layout_height="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="5dp"/>
+                <Button
+                    android:id="@+id/plan_btn_edit"
+                    android:layout_width="match_parent"
+                    android:text="@string/edit"
+                    android:layout_weight="1"
+                    android:shadowColor="#000000"
+                    android:shadowDx="5"
+                    android:shadowDy="5"
+                    android:shadowRadius="10"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12dp"
+                    android:background="@drawable/buttonshape"
+                    android:layout_height="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="5dp"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

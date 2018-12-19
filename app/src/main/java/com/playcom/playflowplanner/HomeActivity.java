@@ -4,15 +4,17 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.playcom.Database.Service.PlanCategoryService;
 import com.playcom.Database.Service.PlanService;
@@ -27,6 +29,22 @@ public class HomeActivity extends AppCompatActivity {
     private Application _application;
     private Context _context;
     private ListView PlanListView;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    return true;
+                case R.id.navigation_settings:
+                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                    return true;
+            }
+            return false;
+        }
+
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +54,8 @@ public class HomeActivity extends AppCompatActivity {
         SetComponents();
         Listeners();
         SetPlanList();
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     private void Listeners() {
@@ -49,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 ft.addToBackStack(null);
                 new PlanAddDialog()
-                        .GetInstance(_application, new PlanCategoryService(_context).GetAll())
+                        .GetInstance(_application, new PlanCategoryService(_context).GetAll(),0)
                         .show(ft, "dialog");
             }
         });
@@ -57,12 +77,14 @@ public class HomeActivity extends AppCompatActivity {
         PlanListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int planId= (int)id;
+                int planId = (int) id;
                 startActivity(new Intent(getApplicationContext(), ActionActivity.class).putExtra("planId", planId));
             }
         });
+
     }
-    private void SetPlanList(){
+
+    private void SetPlanList() {
         ((ListView) findViewById(R.id.listView_mainPlan))
                 .setAdapter(
                         new PlanListAdapter(
