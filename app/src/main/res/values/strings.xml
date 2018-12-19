@@ -35,5 +35,6 @@
     <string name="sms_subject">Subject</string>
     <string name="sms_message">Message</string>
     <string name="sms_message_to">SMS Number</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
