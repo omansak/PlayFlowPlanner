@@ -31,6 +31,15 @@ The app provides users easily organizing the flow plans.
 
 [![UI Frontend](https://github.com/omansak/PlayFlowPlanner/blob/master/Images/ui-frontend.PNG "UI Frontend")](https://github.com/omansak/PlayFlowPlanner/blob/master/Images/ui-frontend.PNG "UI Frontend")
 
+### Permissions
+- android.permission.WAKE_LOCK
+### Activities
+- HomeActivity
+- ActionActivity
+- FunctionListActivity
+- SettingsActivity
+## Receivers
+- Functions.NotificationFunction
 ## Build Setup
 ### Prerequisites for both Android Studio and Gradle
 
